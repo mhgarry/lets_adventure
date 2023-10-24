@@ -75,9 +75,11 @@ while main: # while main is true run the game
                 print('right')
             if event.key == pygame.K_UP or event.key == ord('w'):
                 print('jump')
-    # Game logic here
-            
-    # Draw code here
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                print('left stop')
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                print('right stop')
 
     world.blit(backdrop, backdropbox) # draw background image on game display 
     player_list.draw(world) # draw the player on the game display
