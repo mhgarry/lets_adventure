@@ -30,6 +30,10 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self) # initialize the sprite class
         self.images = [] # create a list to store the images of the sprite
+        self.move_x = 0 # set the movement of the sprite on the x axis
+        self.move_y = 0 # set the movement of the sprite on the y axis
+        self.frame = 0 # set the frame of the sprite
+        
         for i in range(1,6):
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert() # load the sprite images from the images folder
             img.convert_alpha() # optimize the image
@@ -37,6 +41,32 @@ class Player(pygame.sprite.Sprite):
             self.images.append(img) # append each image to the list of images
             self.image = self.images[0] # set the image of the sprite to the first index of the list of images
             self.rect = self.image.get_rect() # get the dimensions of the sprite image
+        
+        def control(self, x, y):
+            '''
+            Control the movement of the sprite
+            '''
+            self.move_x += x
+            self.move_y += y
+        
+        def update(self):
+            '''
+            Update sprite position
+            '''
+            self.rect.x = self.rect.x + self.move_x # update the x position of the sprite
+            self.rect.y = self.rect.y + self.move_y # update the y position of the sprite
+            # move left
+            if self.mov_x < 0:
+                self.frame += 1
+                if self.frame > 3 * ani: # multiply by the animation cycles
+                    self.frame = 0 # reset the frame to 0 to loop the animation 
+                self.image = self.images[self.frame//ani] # divide the frame by the animation to get the index of the image in the list of images 
+            #move right
+            if self.move_x > 0:
+                self.frame += 1
+                if self.frame > 3 * ani: 
+                    self.frame = 0
+                self.image = self.images[self.frame//ani] 
 '''
 Setup
 '''
@@ -55,13 +85,16 @@ Main Loop
 '''
 # Run every frame code here
 while main: # while main is true run the game
+    
     for event in pygame.event.get(): # get and loop through all events in game
+        
         if event.type == pygame.QUIT: # if the event is quit then run the following code
             pygame.quit() # quit the game
             try:
                 sys.exit() # exit the game
             finally:
                 main = False # set main to false to stop the game loop
+        
         if event.type == pygame.KEYDOWN:
             if event.key == ord('q'): # keydown on q key ends the game
                 pygame.quit()
@@ -75,6 +108,7 @@ while main: # while main is true run the game
                 print('right')
             if event.key == pygame.K_UP or event.key == ord('w'):
                 print('jump')
+        
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == ord('a'):
                 print('left stop')
