@@ -65,10 +65,20 @@ while main: # while main is true run the game
         if event.type == pygame.KEYDOWN:
             if event.key == ord('q'): # keydown on q key ends the game
                 pygame.quit()
-            try: 
-                sys.exit()
-            finally:
-                main = False
+                try: 
+                    sys.exit()
+                finally:
+                    main = False
+            if event.key == pygame.K_LEFT or event.key == ord('a'):
+                print('left')
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                print('right')
+            if event.key == pygame.K_UP or event.key == ord('w'):
+                print('jump')
+    # Game logic here
+            
+    # Draw code here
+
     world.blit(backdrop, backdropbox) # draw background image on game display 
     player_list.draw(world) # draw the player on the game display
     pygame.display.flip() # update the game display 
