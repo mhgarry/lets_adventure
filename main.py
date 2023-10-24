@@ -16,6 +16,8 @@ world = pygame.display.set_mode([world_x,world_y]) # create the game display
 backdrop = pygame.image.load(os.path.join('pictures', 'mountain_background.svg')) # load the background image
 backdropbox = world.get_rect() # get the dimensions of the game display
 
+main = True # game loop set to true as default to run the game
+
 '''
 Objects
 '''
@@ -33,5 +35,19 @@ pygame.init() # initialize pygame
 '''
 Main Loop
 '''
-
 # Run every frame code here
+while main: # while main is true run the game
+    for event in pygame.event.get(): # get and loop through all events in game
+        if event.type == pygame.QUIT: # if the event is quit then run the following code
+            pygame.quit() # quit the game
+            try:
+                sys.exit() # exit the game
+            finally:
+                main = False # set main to false to stop the game loop
+        if event.type == pygame.KEYDOWN:
+            if event.key == ord('q'): # keydown on q key ends the game
+                pygame.quit()
+            try: 
+                sys.exit()
+            finally:
+                main = False
