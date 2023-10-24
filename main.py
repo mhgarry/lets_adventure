@@ -51,3 +51,6 @@ while main: # while main is true run the game
                 sys.exit()
             finally:
                 main = False
+    world.blit(backdrop, backdropbox) # draw background image on game display 
+    pygame.display.flip() # update the game display 
+    clock.tick(fps) # set the fps of the game
