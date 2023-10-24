@@ -32,6 +32,8 @@ class Player(pygame.sprite.Sprite):
         self.images = [] # create a list to store the images of the sprite
         for i in range(1,6):
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert() # load the sprite images from the images folder
+            img.convert_alpha() # optimize the image
+            img.set_colorkey((255,255,255))
             self.images.append(img) # append each image to the list of images
             self.image = self.images[0] # set the image of the sprite to the first index of the list of images
             self.rect = self.image.get_rect() # get the dimensions of the sprite image
