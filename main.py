@@ -35,6 +35,12 @@ class Player(pygame.sprite.Sprite):
             self.images.append(img) # append each image to the list of images
             self.image = self.images[0] # set the image of the sprite to the first index of the list of images
             self.rect = self.image.get_rect() # get the dimensions of the sprite image
+        
+        player = Player() # spawn the player
+        player.rect.x = 0 # set the x position of the player
+        player.rect.y = 0  # set the y position of the player
+        player_list = pygame.sprite.Group() # create a sprite group to store the player
+        player_list.add(player) # add the player to the sprite group
 '''
 Setup
 '''
