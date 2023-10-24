@@ -13,7 +13,7 @@ fps = 40 # frames per second of the game
 ani = 4 # animation cycles of the game (used to animate the sprites)
 
 world = pygame.display.set_mode([world_x,world_y]) # create the game display
-backdrop = pygame.image.load(os.path.join('pictures', 'mountain_background.svg')).convert() # load the background image
+backdrop = pygame.image.load(os.path.join('images', 'mountain_background.svg')).convert() # load the background image
 backdropbox = world.get_rect() # get the dimensions of the game display
 
 main = True # game loop set to true as default to run the game
@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
     Player class
     '''
     def __init__(self):
-        pygame.sprite.Sprite__init__(self) # initialize the sprite class
+        pygame.sprite.Sprite.__init__(self) # initialize the sprite class
         self.images = [] # create a list to store the images of the sprite
         for i in range(1,6):
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png')).convert() # load the sprite images from the images folder
