@@ -9,7 +9,7 @@ Variables
 world_x = 960 # width of the game display
 world_y = 720 # height of the game display
 
-fps = 40 # frames per second of the game
+fps = 60 # frames per second of the game
 ani = 4 # animation cycles of the game (used to animate the sprites)
 
 world = pygame.display.set_mode([world_x,world_y]) # create the game display
@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
         self.move_y = 0 # set the default y movement of the sprite
         self.frame = 0 # set the default frame of the sprite
         self.images = [] # create an empty list to store the sprite images
-        for i in range(1,5): # create loop to loop through images and create a sprite animation
+        for i in range(1,6): # create loop to loop through images and create a sprite animation
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png'))
             img.convert_alpha() # convert and optimize the image
             img.set_colorkey((ALPHA)) # set the colorkey of the image to white
@@ -78,7 +78,7 @@ class Enemy(pygame.sprite.Sprite): #create an enemy class
 Setup
 '''
 # Run once code here
-backdrop = pygame.image.load(os.path.join('images', 'mountain_background.svg')) # load the background image
+backdrop = pygame.image.load(os.path.join('images', 'Battleground1.png')) # load the background image
 clock = pygame.time.Clock() # create a clock to control time in our game
 pygame.init() # initialize pygame 
 backdropbox = world.get_rect() # get the dimensions of the game display
