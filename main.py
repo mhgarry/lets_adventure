@@ -107,6 +107,7 @@ class Level():
             enemy = Enemy(eloc[0], eloc[1], 'enemy.png') # spawn an enemy at the location of eloc
             enemy_list = pygame.sprite.Group() # create a sprite group to store the enemy
             enemy_list.add(enemy) # add the enemy to the sprite group
+            return enemy_list # return the enemy list to the main loop  
         
         if lvl == 2: # if level 2 run the following code
             print('Level' + str(lvl)) # print the level number to the console
