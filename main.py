@@ -65,15 +65,19 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
             
 class Enemy(pygame.sprite.Sprite): #create an enemy class
     
-    def __init__(self, x, y, img):
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self) # initialize the sprite
-        self.image = pygame.image.load(os.path.join('images', img)) 
-        self.image.convert_alpha()
-        self.image.set_colorkey((ALPHA))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        
+        self.move_x = 0 # set the default x movement of the sprite
+        self.move_y = 0 # set the default y movement of the sprite
+        self.frame = 0 # set the default frame of the sprite
+        self.images = []
+        for i in range(1,8):
+            img = pygame.image.load(os.path.join('images', 'enemy' + str(i) + '.png'))
+            img.convert_alpha()
+            img.set_colorkey((ALPHA))
+            self.images.append(img)
+            self.image = self.images[0]
+            self.rect = self.image.get_rect()
 '''
 Setup
 '''
@@ -91,6 +95,10 @@ player.rect.y = 0  # set the y position of the player
 player_list = pygame.sprite.Group() # create a sprite group to store the player
 player_list.add(player) # add the player to the sprite group
 steps = 10 # pixels to move the sprite by each step
+
+enemy = Enemy() # spawn the enemy
+enemy_list = pygame.sprite.Group() # create a sprite group to store the enemy
+enemy_list.add(enemy) # add the enemy to the sprite group
 
 '''
 Main Loop
@@ -129,5 +137,6 @@ while main:
     world.blit(backdrop, backdropbox)  # draw the background image on the game display
     player.update()  # updates the player sprite
     player_list.draw(world)  # draw the player sprite on the game display
+    enemy_list.draw(world)  # draw the enemy sprite on the game display
     pygame.display.flip()  # update the game display
     clock.tick(fps)  # set the fps of the game
