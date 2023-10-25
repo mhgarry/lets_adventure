@@ -98,6 +98,9 @@ class Enemy(pygame.sprite.Sprite): #create an enemy class
             self.rect.x += speed # move the enemy to the right by the amount of speed
         elif self.counter >= distance and self.counter <= distance * 2: # if the counter is greater than or equal to distance and less than or equal to distance * 2 run this code
             self.rect.x -= speed # move the enemy to the left by the amount of speed
+        else:
+            self.counter = 0 # set the counter to 0 to start the movement over    
+        
         self.counter += 1 # add 1 to the counter
             
 # create a level class to create the levels of the game
