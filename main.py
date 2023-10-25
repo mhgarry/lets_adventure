@@ -13,7 +13,7 @@ fps = 40 # frames per second of the game
 ani = 4 # animation cycles of the game (used to animate the sprites)
 
 world = pygame.display.set_mode([world_x,world_y]) # create the game display
-
+ALPHA = (0,255,0) # set the color of the background to green (used to make the background transparent)
 
 '''
 Objects
@@ -26,10 +26,10 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
         self.move_y = 0 # set the default y movement of the sprite
         self.frame = 0 # set the default frame of the sprite
         self.images = [] # create an empty list to store the sprite images
-        for i in range(1,6): # create loop to loop through images and create a sprite animation
+        for i in range(1,5): # create loop to loop through images and create a sprite animation
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png'))
             img.convert_alpha() # convert and optimize the image
-            img.set_colorkey((255,255,255)) # set the colorkey of the image to white
+            img.set_colorkey((ALPHA)) # set the colorkey of the image to white
             self.images.append(img) # add the image to the list
             self.image = self.images[0] # set the default image of the sprite
             self.rect = self.image.get_rect() # get the dimensions of the sprite
@@ -83,37 +83,38 @@ steps = 10 # pixels to move the sprite by each step
 Main Loop
 '''
 # Run every frame code here
+# Run every frame code here
 while main:
-    for event in pygame.event.get(): #get and loop through all events in code
-        if event.type == pygame.QUIT: # if the user quits the game then run the following code
-            pygame.quit() # quit the game
+    for event in pygame.event.get():  # get and loop through all events in code
+        if event.type == pygame.QUIT:  # if the user quits the game then run the following code
+            pygame.quit()  # quit the game
             try:
-                sys.exit() # exit the game
+                sys.exit()  # exit the game
             finally:
-                main = False # set main to false to stop the game loop
-        
-        if event.type == pygame.KEYDOWN: # if the user presses a key then run the following code
-            if event.key == ord('q'): # defines actions for the q key
-                pygame.quit() 
+                main = False  # set main to false to stop the game loop
+
+        if event.type == pygame.KEYDOWN:  # if the user presses a key then run the following code
+            if event.key == ord('q'):  # defines actions for the q key
+                pygame.quit()
                 try:
                     sys.exit()
                 finally:
                     main = False
-            if event.key == pygame.K_LEFT or event.key == ord('a'): # defines actions for the left arrow key and the a key
-                player.control(-steps, 0) # move the player to the left by the amount of steps
-            if event.key == pygame.K_RIGHT or event.key == ord('d'): # defines actions for the right arrow key and the d key
-                player.control(steps, 0) # move the player to the right by the amount of steps
-            if event.key == pygame.K_UP or event.key == ord('w'): # defines actions for the up arrow key and the w key
+            if event.key == pygame.K_LEFT or event.key == ord('a'):  # defines actions for the left arrow key and the a key
+                player.control(-steps, 0)  # move the player to the left by the amount of steps
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):  # defines actions for the right arrow key and the d key
+                player.control(steps, 0)  # move the player to the right by the amount of steps
+            if event.key == pygame.K_UP or event.key == ord('w'):  # defines actions for the up arrow key and the w key
                 print('jump')
-                
-            if event.type == pygame.KEYUP: # if the user releases a key then run the following code
-                if event.key == pygame.K_LEFT or event.key == ord('a'): # defines actions for the left arrow key and the a key
-                    player.control(steps, 0)
-                if event.key == pygame.K_RIGHT or event.key == ord('d'): # defines actions for the right arrow key and the d key
-                    player.control(-steps, 0)
 
-            world.blit(backdrop, backdropbox) # draw the background image on the game display
-            player.update() # updates the player sprite
-            player_list.draw(world) # draw the player sprite on the game display
-            pygame.display.flip() # update the game display
-            clock.tick(fps) # set the fps of the game
+        if event.type == pygame.KEYUP:  # if the user releases a key then run the following code
+            if event.key == pygame.K_LEFT or event.key == ord('a'):  # defines actions for the left arrow key and the a key
+                player.control(steps, 0)
+            if event.key == pygame.K_RIGHT or event.key == ord('d'):  # defines actions for the right arrow key and the d key
+                player.control(-steps, 0)
+
+    world.blit(backdrop, backdropbox)  # draw the background image on the game display
+    player.update()  # updates the player sprite
+    player_list.draw(world)  # draw the player sprite on the game display
+    pygame.display.flip()  # update the game display
+    clock.tick(fps)  # set the fps of the game
