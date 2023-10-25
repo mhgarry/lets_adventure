@@ -78,6 +78,20 @@ class Enemy(pygame.sprite.Sprite): #create an enemy class
             self.rect = self.image.get_rect()
             self.rect.x = x
             self.rect.y = y
+            
+# create a level class to create the levels of the game
+class Level():
+    def bad(lvl,eloc): # create a function to spawn enemies
+        if lvl == 1: # if level 1 run the following code
+            enemy = Enemy(eloc[0], eloc[1], 'enemy.png') # spawn an enemy at the location of eloc
+            enemy_list = pygame.sprite.Group() # create a sprite group to store the enemy
+            enemy_list.add(enemy) # add the enemy to the sprite group
+        
+        if lvl == 2: # if level 2 run the following code
+            print('Level' + str(lvl)) # print the level number to the console
+        
+        return enemy_list # return the enemy list to the main loop
+        
 '''
 Setup
 '''
@@ -96,10 +110,12 @@ player_list = pygame.sprite.Group() # create a sprite group to store the player
 player_list.add(player) # add the player to the sprite group
 steps = 10 # pixels to move the sprite by each step
 
-enemy = Enemy(300, 0, 'enemy.png') # spawn the enemy
-enemy_list = pygame.sprite.Group() # create a sprite group to store the enemy
-enemy_list.add(enemy) # add the enemy to the sprite group
-
+# enemy = Enemy(300, 0, 'enemy.png') # spawn the enemy
+# enemy_list = pygame.sprite.Group() # create a sprite group to store the enemy
+# enemy_list.add(enemy) # add the enemy to the sprite group
+eloc = []
+eloc = [300, 0] # set the location of the enemy
+enemy_list = Level.bad(1, eloc) # spawn the enemy
 '''
 Main Loop
 '''
