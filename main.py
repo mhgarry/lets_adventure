@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
         self.move_x = 0 # set the default x movement of the sprite
         self.move_y = 0 # set the default y movement of the sprite
         self.frame = 0 # set the default frame of the sprite
+        self.health = 100 # set the default health of the sprite
         self.images = [] # create an empty list to store the sprite images
         for i in range(1,6): # create loop to loop through images and create a sprite animation
             img = pygame.image.load(os.path.join('images', 'hero' + str(i) + '.png'))
@@ -63,12 +64,19 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
                 self.frame = 0 # set the frame to 0 to start the animation over
             self.image = self.images[self.frame // ani] # set the image back to default the right
             
+        # damage calculation
+        hit_list = pygame.sprite.spritecollide(self, enemy_list, False) # create a list of all sprites that collide with the player
+        for enemy in hit_list:
+            self.health -= 10 # subtract 10 from the health of the player
+            print(self.health) # print the health of the player to the console
+            
 class Enemy(pygame.sprite.Sprite): #create an enemy class
     
     def __init__(self, x, y, img):
         pygame.sprite.Sprite.__init__(self) # initialize the sprite
         self.frame = 0 # set the default frame of the sprite
         self.images = []
+        self.counter = 0 # set the default counter of the enemy sprite
         for i in range(1,8):
             img = pygame.image.load(os.path.join('images', 'enemy' + str(i) + '.png'))
             img.convert_alpha()
@@ -78,6 +86,19 @@ class Enemy(pygame.sprite.Sprite): #create an enemy class
             self.rect = self.image.get_rect()
             self.rect.x = x
             self.rect.y = y
+        
+    def move(self):
+        '''
+        Enemy movement
+        '''
+        distance = 80 # distance enemy moves
+        speed = 8 # speed of the enemy
+            
+        if self.counter >= 0 and self.counter <= distance: # if counter is greater than or equal to 0 and less than or equal to distance run the following code
+            self.rect.x += speed # move the enemy to the right by the amount of speed
+        elif self.counter >= distance and self.counter <= distance * 2: # if the counter is greater than or equal to distance and less than or equal to distance * 2 run this code
+            self.rect.x -= speed # move the enemy to the left by the amount of speed
+        self.counter += 1 # add 1 to the counter
             
 # create a level class to create the levels of the game
 class Level():
@@ -154,5 +175,7 @@ while main:
     player.update()  # updates the player sprite
     player_list.draw(world)  # draw the player sprite on the game display
     enemy_list.draw(world)  # draw the enemy sprite on the game display
+    for e in enemy_list: # loop through enemy list
+        e.move()
     pygame.display.flip()  # update the game display
     clock.tick(fps)  # set the fps of the game
