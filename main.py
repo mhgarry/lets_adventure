@@ -20,6 +20,7 @@ Objects
 '''
 # Classes and functions here
 class Player(pygame.sprite.Sprite): # player class to create the player sprite and controls
+    
     def __init__(self):
         pygame.sprite.Sprite.__init__(self) # initialize the sprite
         self.move_x = 0 # set the default x movement of the sprite
@@ -61,6 +62,18 @@ class Player(pygame.sprite.Sprite): # player class to create the player sprite a
             if self.frame > 3 * ani: # if the frame is greater than 3 * ani then set the frame to 0
                 self.frame = 0 # set the frame to 0 to start the animation over
             self.image = self.images[self.frame // ani] # set the image back to default the right
+            
+class Enemy(pygame.sprite.Sprite): #create an enemy class
+    
+    def __init__(self, x, y, img):
+        pygame.sprite.Sprite.__init__(self) # initialize the sprite
+        self.image = pygame.image.load(os.path.join('images', img)) 
+        self.image.convert_alpha()
+        self.image.set_colorkey((ALPHA))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        
 '''
 Setup
 '''
